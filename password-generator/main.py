@@ -46,4 +46,6 @@ for n in range(len(password)):
     # password = password.replace(password[rnd_index1],"")
     password = password[0: rnd_index:] + password[rnd_index + 1::]
 
+# or can use random.shuffle()
+
 print(hard_password)
