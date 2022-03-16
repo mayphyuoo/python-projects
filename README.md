@@ -1,3 +1,3 @@
 # python-practice
 
-day-100 challenges from course https://www.udemy.com/course/100-days-of-code/
+100-day challenges from course https://www.udemy.com/course/100-days-of-code/
