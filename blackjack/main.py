@@ -32,7 +32,6 @@ def print_hands(dealer, player):
 # 0 : player stopped the game
 # -1 : natural dealer
 # 1 : natural player
-# 2 : natural draw
 # 3 : player got busted
 # 4 : player won
 # 5 : dealer won
@@ -86,10 +85,6 @@ def play():
     print_hands(dealer_hand, player_hand)
     # dealer_hand, player_hand = reset_hands(dealer_hand, player_hand)
     return 1
-  elif sum(dealer_hand) == 21 and sum(dealer_hand) == sum(player_hand):
-    print_hands(dealer_hand, player_hand)
-    # dealer_hand, player_hand = reset_hands(dealer_hand, player_hand)
-    return 2
 
   done = False
   while (done == False):
@@ -103,11 +98,18 @@ def play():
       return norm
     else:
       player_hand.append(random.choice(cards))
+      if (sum(player_hand) > 21 and player_hand[len(player_hand)-1] == 11):
+        player_hand[len(player_hand)-1] = 1
+
       if (sum(player_hand) > 21):
         done = True
         print_hands(dealer_hand, player_hand)
         # dealer_hand, player_hand = reset_hands(dealer_hand, player_hand)
         return 3
+      elif (sum(player_hand) == 21):
+        done = True
+        print_hands(dealer_hand, player_hand)
+        return 1
 
 
 def deciding_func(argument):
@@ -115,7 +117,6 @@ def deciding_func(argument):
         0: "Sad to see you go. Come back anytime. ♥️ ♦ ♠️ ♣️",
         -1: "Dealer wins with a Blackjack! 😔",
         1: "Win with a Blackjack 😎",
-        2: "You guys both draw on Blackjack! What are the odds!! 😱",
         3: "You lose. You got busted.",
         4: "You won!",
         5: "Dealer won! You lose.",
@@ -133,9 +134,10 @@ while game_continue:
 
   want_to_play = input(
       "Do you want to play a game of Blackjack? Type 'y' or 'n': ")
-  clearConsole()
+  
   if want_to_play == 'n':
      game_continue = False
-
-  result = play()
-  print(deciding_func(result))
+  else:
+    clearConsole()
+    result = play()
+    print(deciding_func(result))
