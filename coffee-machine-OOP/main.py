@@ -1,3 +1,5 @@
+# flake8: noqa
+# type: ignore
 import os
 from prettytable.colortable import PrettyTable, ColorTable, Theme
 from menu import Menu
