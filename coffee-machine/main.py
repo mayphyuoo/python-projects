@@ -52,7 +52,8 @@ def process_transaction(cost):
     for i in range(len(coins)):
         coinAmount[i] = int(input(f"How many {coins[i]}?: "))
 
-    paid = quarter * coinAmount[0] + dime * coinAmount[1] + nickle * coinAmount[2] + penny * coinAmount[3]
+    paid = quarter * coinAmount[0] + dime * coinAmount[1]
+    + nickle * coinAmount[2] + penny * coinAmount[3]
     if paid > cost:
         change = round(paid - cost, 2)
         paid = cost
@@ -77,6 +78,7 @@ def make_coffee(res, req):
 
 
 def refill_coffeeMachine(resources):
+    """Refill coffee machine"""
     water = int(input("How much water?: "))
     milk = int(input("How much milk?: "))
     coffee = int(input("How much coffee?: "))
@@ -92,7 +94,7 @@ money = 0
 clear_console()
 
 while machineOn:
-    choice = input("What would you like? (espresso/latte/cappuccino)[report/refill]: ")
+    choice = input("What would you like? (espresso/latte/cappuccino): ")
 
     if choice == "off":
         machineOn = False
@@ -103,22 +105,22 @@ while machineOn:
     elif choice in MENU.keys():
         enough, res = check_resources(resources, MENU[choice]['ingredients'])
         if enough is True:
-            print("Enough resources. proceed to make coffee")
             change, done, profit = process_transaction(MENU[choice]['cost'])
             money += profit
             if done is False:
                 print("Sorry that's not enough money. Money refunded.")
             else:
-                print("Payment completed. making coffee.")
+                print("Payment completed. Making coffee...")
                 resources = make_coffee(resources, MENU[choice]['ingredients'])
-                print(f"Here is your {choice}. Enjoy!")
+                print(f"Here is your {choice} ☕. Enjoy!")
                 if change > 0:
                     print(f"Here is ${change} dollars in change.")
         else:
             print(f"Sorry there is not enough {res}.")
     elif choice == "refill":
-        print("Refilling coffee machine")
+        print("Refilling coffee machine...")
         resources = refill_coffeeMachine(resources)
+        clear_console()
     elif choice == "clear":
         clear_console()
     else:
